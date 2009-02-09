@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     05/02/2009 10:09:04                                                        
+
+     do-test    
+     Run some test for each ant task.
+                   
+     frosado                                                                
+     ====================================================================== -->
+<project name="do-test" default="default" basedir="..">
+    <description>
+            Run some test for each ant task.
+    </description>
+	<import file="${basedir}/build/custom_tasks.xml"/>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="init" description="Run some test for each ant task.">
+    	<antcall target="test-size" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init">
+		
+    </target>
+	<!-- -->
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: name                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="test-size">
+    	<filesize file="${basedir}" property="sample-size"/>
+    	<echo>${sample-size} Kb</echo>
+    </target>
+</project>
+
