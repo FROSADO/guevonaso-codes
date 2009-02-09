@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript" src="format.js"></script>
+<pre class="java">
+	package es.guevonaso.ant.size;
+import java.io.File;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+
+public class SizeTask extends Task {
+private String property;
+protected File file;
+
+public SizeTask() {
+ file = null;
+ property = null;}
+
+public void setFile(String s) {
+ file = new File(s);}
+
+public void setProperty(String s) {
+ property = s;}
+
+public void execute() throws BuildException {
+ if (file == null)
+    throw new BuildException("File attribute must be set.");
+ if (file.exists()) {
+     long lSize = size(file);
+     String sSize = Long.toString( lSize / 1024L);
+     getProject().setNewProperty(property, sSize);
+ } else {
+    throw new BuildException("File cannot be found.");
+ }
+}
+private long size(File file) {
+ log l = 0;
+ if (file.isDirectory()) {
+    File afile[] = file.listFiles();
+    for (int i = 0; i < afile.length; i++)
+       l += size(afile[i]);
+ } else {
+    l = file.length();
+ }
+ return l
+}
+	
+	
+</pre>    
+</body>
+</html>
