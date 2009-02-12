@@ -23,6 +23,7 @@ var javaKeywords = new Array (
     "implement" , 
     "new"       ,
     "null"      ,
+    "package"	,
     "private"   ,
     "protected" ,
     "public"    ,
@@ -40,16 +41,30 @@ var javaKeywords = new Array (
 
     "zzzzzzzz"
     );
+var grayJavaKeywords = new Array (
+	"@Override",
+	"@Deprecated",
+	"@SuppressWarnings"
+	);
+	
+
 
 function paintColors() {
 	keywords = "(";
+	
 	var keywordArray = javaKeywords;
-
 	for ( var n = 0; n < keywordArray.length; n++)
 		keywords += "\\b" + keywordArray[n] + "\\b|";
 
 	keywords = keywords + "string)";
-
+	// other
+	otherKeywords = "(";
+	var otherKeywordArray = grayJavaKeywords;
+	for ( var i = 0; i < otherKeywordArray.length; i++) {
+		otherKeywords += otherKeywordArray[i] + "|";
+	}
+	otherKeywords = otherKeywords + "string)";
+	// Format pre
 	var elems = document.getElementsByTagName("pre");
 	for (n = elems.length - 1; n >= 0; n--) {
 		if ((elems[n].className)
@@ -80,7 +95,6 @@ function format(node, func) {
                 
 function formatCs (text)
 {
-
     var re = / /g;
     text = text.replace (re, "&nbsp;");
 
@@ -94,7 +108,8 @@ function formatCs (text)
     
     re = new RegExp (keywords,"g");
     text = text.replace (re,"<span style='color:blue'>$1</span>");
-    
+    re = new RegExp (otherKeywords,"g");
+    text = text.replace (re,"<span style='color:gray'>$1</span>");
     re = /\t/g;
     text = text.replace (re,"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
     

@@ -3,11 +3,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style type="text/css">
+
+.java, .javascript , .cmd, .bash, .xml, .html { 
+ display:block;
+ border:1px solid black;
+ padding: .5em;
+ margin : 0px;
+ color: #0A0A00;
+ background: #FFFFCF;
+}
+</style>
+
 </head>
 <body>
 <script type="text/javascript" src="format.js"></script>
 <pre class="java">
-	package es.guevonaso.ant.size;
+// comentario
+package es.guevonaso.ant.size;
 import java.io.File;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -20,12 +33,14 @@ public SizeTask() {
  file = null;
  property = null;}
 
+@Deprecated
 public void setFile(String s) {
  file = new File(s);}
 
 public void setProperty(String s) {
  property = s;}
 
+ @Override 
 public void execute() throws BuildException {
  if (file == null)
     throw new BuildException("File attribute must be set.");
