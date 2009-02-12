@@ -32,7 +32,7 @@ import es.guevonaso.dates.DateTimeUtils;
  * @date 11/02/2009
  * 
  */
-public class DateTimeUitlsTest extends TestCase {
+public class DateTimeUtilsTest extends TestCase {
 	
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -58,6 +58,7 @@ public class DateTimeUitlsTest extends TestCase {
 		calendario.setTime(ahora);
 		String[] div = hora.split(":");
 		Assert.assertNotNull(div);
+		Assert.assertNotNull(div);
 		Assert.assertTrue(div.length > 1);
 		Assert.assertEquals(Integer.valueOf(div[0]), Integer.valueOf(calendario
 				.get(Calendar.HOUR_OF_DAY)));
@@ -74,8 +75,8 @@ public class DateTimeUitlsTest extends TestCase {
 		calendario.setTime(ahora);
 		String[] divs = fecha.split("/");
 		
-		Assert.assertNotNull(divs);
-		Assert.assertTrue(divs.length > 2);
+		assertNotNull(divs);
+		assertTrue(divs.length > 2);
 		Assert.assertEquals(Integer.valueOf(divs[0]), Integer
 				.valueOf(calendario.get(Calendar.DAY_OF_MONTH)));
 		Assert.assertEquals(Integer.valueOf(divs[1]), Integer
