@@ -18,10 +18,10 @@
 
 	<target name="compileSourceCode">
 		<delete dir="bin" failonerror="no"/>
-		<mkdir dir="bin"/>
+		<mkdir dir="target/classes"/>
 		<javac
-			srcdir="src"
-			destdir="bin"
+			srcdir="src/main/java"
+			destdir="target/classes"
 			source="1.6"			
 			debug="on"
 			optimize="on"
@@ -33,7 +33,7 @@
 	
 	<target name= "packageLibrary">  
 		<jar compress="true" destfile="${basedir}/guevonaso-java-utils.jar">
-			<fileset dir="bin">
+			<fileset dir="target/classes">
 				<include name="**/*"/>
 			</fileset>
 		</jar>	  	
