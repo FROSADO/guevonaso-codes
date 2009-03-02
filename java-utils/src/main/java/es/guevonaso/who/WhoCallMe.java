@@ -81,9 +81,4 @@ public class WhoCallMe implements Serializable {
 	public String getFullInfo() {
 		return fullInfo;
 	}
-	public static void main(String[] args) {
-		WhoCallMe l = new WhoCallMe(new Throwable(), WhoCallMe.class
-				.getName());
-		System.out.println(l.getFullInfo());
-	}
 }
