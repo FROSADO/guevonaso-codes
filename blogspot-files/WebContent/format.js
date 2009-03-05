@@ -105,7 +105,7 @@ var cmdKeywords = new Array (
 );
 
 var grayCmdKeywords = new Array(
-	"%1","%2","%3","%4","%5","%0","%~dp0","%~d1","%~f0","%*","%Date","%Time"	
+	"%1","%2","%3","%4","%5","%0","%~dp0","%~d1","%~f0","%\*","%Date","%Time"	
 );
 function paintColors() {
 	
