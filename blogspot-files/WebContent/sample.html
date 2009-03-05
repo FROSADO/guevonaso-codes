@@ -34,6 +34,44 @@
 Yo pongo cualquier texto.
 <span class="nota">Esta es una nota de prueba</span>
 Y luego continuo
+
+<pre class="cmd">
+
+@echo off
+REM Actually this script only run in 
+REM local paths. To use in a shared folder
+REM this must be mapped a "Map Network Drive".
+
+REM %~dp0 is the name of current script dir under NT
+REM Enable local enviroment
+setlocal
+
+SET PY_SCRIPT_DIR=%~dp0worklog\
+SET PY_SCRIPT=%PY_SCRIPT_DIR%\timesheet.py
+
+SET PYTHON_HOME=%~dp0..\Python25
+SET WGET_HOME=%~dp0..\Wget
+SET PATH=%PYTHON_HOME%;%WGET_HOME%\bin
+SET PYTHONPATH=%PYTHONPATH%;%~dp0
+
+
+set year=%Date:~10,4%
+set month=%Date:~4,2%
+set day=%Date:~7,2%
+
+set hour=%Time:~0,2%
+set minute=%Time:~3,2%
+set second=%Time:~6,2%
+
+set FILE=%~dp0"logs\activity-report_%year%_%month%_%day%_%hour%%minute%%second%.txt"
+cd %PY_SCRIPT_DIR%
+python %PY_SCRIPT% user pass %1 %2 >> %FILE% 2>&1
+
+endlocal
+
+
+</pre>
+<br />
 <pre class="java">
 // comentario
 package es.guevonaso.ant.size;
