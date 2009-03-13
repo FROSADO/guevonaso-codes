@@ -60,6 +60,8 @@ var grayCmdKeywords = new Array(
 	"%1","%2","%3","%4","%5","%0","%~dp0","%~d1","%~f0","%Date","%Time"	
 );
 function paintColors() {
+	// Change stylesheet 
+		
 	
 	// Format pre
 	var elems = document.getElementsByTagName("pre");
@@ -171,5 +173,22 @@ function formatCmd (text,keywords,otherKeywords)
     return div.innerHTML;
 }
 
+function openPingbox (span) {
+	var parent = span.parentNode;
+	if (parent.tagName != "DIV") {
+		openPingbox(parent);
+	} else {
+		parent.innerHTML = "<object id=\"pingboxisju8km88mg00\" "+
+ 		"type=\"application/x-shockwave-flash\" " +
+		"data=\"http://wgweb.msg.yahoo.com/badge/Pingbox.swf\"" +
+		" width=\"240\" height=\"420\">" +
+		"<param name=\"movie\" " +
+		" value=\"http://wgweb.msg.yahoo.com/badge/Pingbox.swf\" />" +
+		"<param name=\"allowScriptAccess\" value=\"always\" />" +
+		"<param name=\"flashvars\" value=\"wid=8ERxF6i9RnC6gELGyaQZmEjjzQDIod380pvsA6E6.rZMuD9z\" /" +
+		"></object>";
+	}
+	
+}
 
 window.onload = paintColors;
