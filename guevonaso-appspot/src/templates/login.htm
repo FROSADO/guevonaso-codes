@@ -1,0 +1,6 @@
+{% if url_login and not user %}
+	<a href="{{url_login}}">Login</a>
+	{% endif %}
+{% if url_logout and user %}
+	<a href="{{url_logout}}">Logout</a>
+{% endif %}
