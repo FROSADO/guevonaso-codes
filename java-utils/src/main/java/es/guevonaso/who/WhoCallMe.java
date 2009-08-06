@@ -30,7 +30,11 @@ import java.io.StringWriter;
  *
  */
 public class WhoCallMe implements Serializable {
-	private static StringWriter sw = new StringWriter();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6027634235212502941L;
+	private static final StringWriter sw = new StringWriter();
 	private static PrintWriter pw = new PrintWriter(WhoCallMe.sw);
 	private final String fullInfo;
 	private static final String NA = "?";
@@ -58,7 +62,7 @@ public class WhoCallMe implements Serializable {
 			sw.getBuffer().setLength(0);
 		}
 		// System.out.println("s is ["+s+"].");
-		int ibegin, iend;
+		int ibegin;
 		
 		
 		// This method of searching may not be fastest but it's safer
