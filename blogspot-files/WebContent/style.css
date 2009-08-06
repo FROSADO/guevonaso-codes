@@ -5,4 +5,10 @@
  margin : 0px;
  color: #0A0A00;
  background: #FFFFCF;
+ font-family: monospace;
+}
+
+span.formatted {
+  font-family: monospace;
+  
 }

@@ -71,12 +71,13 @@ function paintColors() {
 			format(elems[n], formatJava,javaKeywords,grayJavaKeywords);
 		  } else if (elems[n].className=="cmd") {
 			format(elems[n],formatCmd,cmdKeywords,grayCmdKeywords);
+		  } else if (elems[n].className=="xml") {
+			format(elems[n],formatXML,[],[]);
 		  }
 		}
 	}
-
-
 }
+
 function format(node, func,keywordArray,otherKeywordArray) {
 	keywords = "(";
 	
@@ -106,7 +107,18 @@ function format(node, func,keywordArray,otherKeywordArray) {
 	node.parentNode.replaceChild(div, node);
 	div.className = className;
 }         
-                
+        
+function formatXML(text,keywords,otherKeywords) {
+	var re= new RegExp ("(.*)&lt;(.*)&gt;(.*)","g");
+	text = text.replace(re,"$1###SPAN-START###&lt;$2&gt;###SPAN-END###$3");
+	re = new RegExp("=\"(.*)\"([. ]*)","g");
+	text = text.replace(re,"=###START-QUOTES-###$1###END-QUOTES-###$2 ");
+	text = text.replace(/###SPAN-START###/g,"<span class='formatted' style='color:blue'>");
+	text = text.replace(/###SPAN-END###/g,"</span>");
+	text = text.replace(/###START-QUOTES-###/g,"<span class='formatted' style='color:green'>\"");
+	text = text.replace(/###END-QUOTES-###/g,"\"</span>");
+	return text;
+}
 function formatJava (text,keywords,otherKeywords)
 {
     var re = / /g;
@@ -118,12 +130,12 @@ function formatJava (text,keywords,otherKeywords)
     text = text.replace (re,"<span style='color:purple'>\$1\</span>");
 
     re = /\/\/(((.(?!\"\<\/span\>))|"(((?!").)*)"\<\/span\>)*)(\r|\n|\r\n)/g;
-    text = text.replace (re,"<span style='color:green'>//$1</span><br/>");
+    text = text.replace (re,"<span class='formatted' style='color:green'>//$1</span><br/>");
     
     re = new RegExp (keywords,"g");
-    text = text.replace (re,"<span style='color:blue'>$1</span>");
+    text = text.replace (re,"<span class='formatted' style='color:blue'>$1</span>");
     re = new RegExp (otherKeywords,"g");
-    text = text.replace (re,"<span style='color:gray'>$1</span>");
+    text = text.replace (re,"<span class='formatted' style='color:gray'>$1</span>");
     re = /\t/g;
     text = text.replace (re,"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
     
@@ -149,13 +161,13 @@ function formatCmd (text,keywords,otherKeywords)
     // cant get this one to work in the good syntax
 //  re = new RegExp ("\"((((?!\").)|\\\")*)\"","g");
     re = new RegExp ("(\"(?!\").+?\")","g");
-    text = text.replace (re,"<span style='color:purple'>\$1\</span>");
+    text = text.replace (re,"<span class='formatted' style='color:purple'>\$1\</span>");
 //     re = new RegExp ("(\%(?!\%).+?\%+)","g");
 //    text = text.replace (re,"<span style='color:red'>\$1\</span>");
     re = new RegExp (keywords,"gi");
-    text = text.replace (re,"<span style='color:blue'>$1</span>");
+    text = text.replace (re,"<span class='formatted' style='color:blue'>$1</span>");
     re = new RegExp (otherKeywords,"gi");
-    text = text.replace (re,"<span style='color:gray'>$1</span>");
+    text = text.replace (re,"<span class='formatted' style='color:gray'>$1</span>");
     re = /\t/g;
     text = text.replace (re,"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
     re = /\n/g;

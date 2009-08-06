@@ -12,6 +12,11 @@
  margin : 0px;
  color: #0A0A00;
  background: #FFFFCF;
+ font-family: monospace;
+}
+
+span.formatted {
+  font-family: monospace;
 }
 
 .nota {
@@ -123,5 +128,17 @@ private long size(File file) {
 	
 	
 </pre>    
+<br />
+<pre class="xml">
+&lt;lastFile property="my.property"&gt;
+   &lt;fileset dir="C:/FOLDER"&gt;
+     &lt;include name="**/*.exe"/&gt;
+     &lt;exclude name="*Setup*" /&gt;
+     <hide>a</hide>
+   &lt;/fileset&gt;
+&lt;/lastFile&gt;
+
+
+</pre>
 </body>
 </html>
