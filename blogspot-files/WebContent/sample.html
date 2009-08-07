@@ -139,6 +139,38 @@ private long size(File file) {
 &lt;/lastFile&gt;
 
 
+
 </pre>
+<br />
+
+<pre class="xml">
+&lt;web-app&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+&lt;listener&gt;
+
+    &lt;listener-class&gt;es.guevonaso.InitListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;guevonaso&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;es.guevonaso.guevonasoServlet&lt;/servlet-class&gt;
+
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;guevonaso&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/guevonaso&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;welcome-file-list&gt;
+
+    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+&lt;/web-app&gt;</pre>
 </body>
 </html>
