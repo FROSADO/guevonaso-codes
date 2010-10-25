@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>SampleJavaCode</title>
+<style type="text/css">
+
+.java, .javascript , .cmd, .bash, .xml, .html { 
+ display:block;
+ border:1px solid black;
+ padding: .5em;
+ margin : 0px;
+ color: #0A0A00;
+ background: #FFFFCF;
+ font-family: monospace;
+}
+
+span.formatted {
+  font-family: monospace;
+}
+
+.nota {
+    display: block;
+    clear: both;
+	border:2px solid #f7cc00; 
+	background-color:#f7d899; 
+	margin: 0.5em 20% 0.5em 20%;
+	width:60%; 
+	background-image: url(nota_clasica.png);
+	background-repeat: no-repeat;
+	padding: 5px 5px 25px 60px;
+
+}
+</style>
+<script type="text/javascript" language="javascript" src="guevonaso/guevonaso.nocache.js"></script>
+</head>
+
+<body>
+<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+	style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+
+<div>
+<span onclick="openPingbox(this)">Open pingbox</span>
+</div>
+Yo pongo cualquier texto.
+<span class="nota">Esta es una nota de prueba</span>
+Y luego continuo
+
+<pre class="cmd">
+
+@echo off
+REM Actually this script only run in 
+REM local paths. To use in a shared folder
+REM this must be mapped a "Map Network Drive".
+
+REM %~dp0 is the name of current script dir under NT
+REM Enable local enviroment
+setlocal
+
+SET PY_SCRIPT_DIR=%~dp0worklog\
+SET PY_SCRIPT=%PY_SCRIPT_DIR%\timesheet.py
+
+SET PYTHON_HOME=%~dp0..\Python25
+SET WGET_HOME=%~dp0..\Wget
+SET PATH=%PYTHON_HOME%;%WGET_HOME%\bin
+SET PYTHONPATH=%PYTHONPATH%;%~dp0
+
+
+set year=%Date:~10,4%
+set month=%Date:~4,2%
+set day=%Date:~7,2%
+
+set hour=%Time:~0,2%
+set minute=%Time:~3,2%
+set second=%Time:~6,2%
+
+set FILE=%~dp0"logs\activity-report_%year%_%month%_%day%_%hour%%minute%%second%.txt"
+cd %PY_SCRIPT_DIR%
+python %PY_SCRIPT% user pass %1 %2 >> %FILE% 2>&1
+
+endlocal
+
+
+</pre>
+<br />
+<pre class="java">
+// comentario
+
+// comentario "entre comillas"
+package es.guevonaso.ant.size;
+import java.io.File;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+
+public class SizeTask extends Task {
+private String property;
+protected File file;
+
+public SizeTask() {
+ file = null;
+ property = null;}
+
+@Deprecated
+public void setFile(String s) {
+ file = new File(s);}
+
+public void setProperty(String s) {
+ property = s;}
+
+ @Override 
+public void execute() throws BuildException {
+ if (file == null)
+    throw new BuildException("File attribute must be set.");
+ if (file.exists()) {
+     long lSize = size(file);
+     String sSize = Long.toString( lSize / 1024L);
+     getProject().setNewProperty(property, sSize);
+ } else {
+    throw new BuildException("File cannot be found.");
+ }
+}
+private long size(File file) {
+ log l = 0;
+ if (file.isDirectory()) {
+    File afile[] = file.listFiles();
+    for (int i = 0; i < afile.length; i++)
+       l += size(afile[i]);
+ } else {
+    l = file.length();
+ }
+ return l
+}
+	
+	
+</pre>    
+<br />
+<pre class="xml">
+&lt;lastFile property="my.property"&gt;
+   &lt;fileset dir="C:/FOLDER"&gt;
+     &lt;include name="**/*.exe"/&gt;
+     &lt;exclude name="*Setup*" /&gt;
+     <hide>a</hide>
+   &lt;/fileset&gt;
+&lt;/lastFile&gt;
+
+
+
+</pre>
+
+<pre class="javascript">
+name = function () {
+	a = "Ejemplo";
+	b = "Otro";
+	return a + b;
+}
+
+x.prototype.x = "asaber";
+for (x=1;z<3;x++) {
+	a = new Rexxx("aaa","aaa");
+	a.x = function () { return null;};
+	a.x();
+}
+
+
+</pre>
+<br />
+
+<pre class="xml">
+&lt;web-app&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+&lt;listener&gt;
+
+    &lt;listener-class&gt;es.guevonaso.InitListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;guevonaso&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;es.guevonaso.guevonasoServlet&lt;/servlet-class&gt;
+
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;guevonaso&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/guevonaso&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;welcome-file-list&gt;
+
+    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+&lt;/web-app&gt;</pre>
+
+</body>
+</html>
