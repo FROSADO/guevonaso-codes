@@ -1,6 +1,9 @@
 package es.gvn.blog.client.formater;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 
 import es.gvn.blog.client.CodeFormat;
 
@@ -51,7 +54,7 @@ public class FormatJava extends CodeFormat {
 
 	@Override
 	protected String format(String content) {
-
+		Window.alert ("Formateando Java");
 		String result = content;
 		// Coloreo las comillas en purpura
 		result = regExpReplace(content, regQuotes(), TEMP_OPEN_SPAN_PURPLE
@@ -70,6 +73,7 @@ public class FormatJava extends CodeFormat {
 		result = result.replace(" ", "&nbsp;");
 		result = result.replace(JAVA_COMMENT, "//");
 		result = replaceSpan(result);
+		Window.alert("Formateado");
 		return result;
 	}
 
