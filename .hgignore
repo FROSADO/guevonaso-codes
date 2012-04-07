@@ -1,0 +1,5 @@
+syntax: regexp
+blogspot-files/WebContent/WEB-INF/classes/*
+syntax: glob
+java-utils/target/classes/*
+java-utils/target/test-classes/*
