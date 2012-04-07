@@ -1,0 +1,3 @@
+syntax: regexp
+gwt-unitCache/*
+war/WEB-INF/classes/*
