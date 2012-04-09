@@ -11,6 +11,8 @@
 
 	<ul id="enlaces">
 		<li id="prototipo"><a href="prototipo/index.html">Prototipo PFC</a></li>
+		<li id="jointjs"><a href="jointjs/index.html">Prueba diagramas</a></li>
+		
 	</ul>
 </body>
 </html>
