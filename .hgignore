@@ -3,3 +3,20 @@ blogspot-files/WebContent/WEB-INF/classes/*
 syntax: glob
 java-utils/target/classes/*
 java-utils/target/test-classes/*
+blogspot-files/WebContent/WEB-INF/lib/gwt-servlet.jar
+guevonaso-appspot-java/war/WEB-INF/classes/*
+pfc/war/WEB-INF/classes/*
+pfc/war/WEB-INF/deploy/*
+pfc/war/es.fra.client.ImageViewer/*
+guevonaso-appspot-java/war/WEB-INF/lib/jsr107cache-1.1.jar
+guevonaso-appspot-java/war/WEB-INF/lib/jdo2-api-2.3-eb.jar
+guevonaso-appspot-java/war/WEB-INF/lib/datanucleus-jpa-1.1.5.jar
+guevonaso-appspot-java/war/WEB-INF/lib/datanucleus-core-1.1.5.jar
+guevonaso-appspot-java/war/WEB-INF/lib/datanucleus-appengine-1.0.10.final.jar
+guevonaso-appspot-java/war/WEB-INF/lib/appengine-jsr107cache-1.6.4.jar
+guevonaso-appspot-java/war/WEB-INF/lib/appengine-api-labs-1.6.4.jar
+guevonaso-appspot-java/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.4.jar
+guevonaso-appspot-java/.settings/org.eclipse.jdt.core.prefs
+pfc/war/WEB-INF/lib/appengine-jsr107cache-1.6.4.jar
+pfc/war/WEB-INF/lib/appengine-api-labs-1.6.4.jar
+pfc/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.4.jar
