@@ -20,3 +20,4 @@ guevonaso-appspot-java/.settings/org.eclipse.jdt.core.prefs
 pfc/war/WEB-INF/lib/appengine-jsr107cache-1.6.4.jar
 pfc/war/WEB-INF/lib/appengine-api-labs-1.6.4.jar
 pfc/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.4.jar
+pfc/.gwt/.gwt-log
