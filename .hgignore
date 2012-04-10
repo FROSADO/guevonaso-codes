@@ -21,3 +21,26 @@ pfc/war/WEB-INF/lib/appengine-jsr107cache-1.6.4.jar
 pfc/war/WEB-INF/lib/appengine-api-labs-1.6.4.jar
 pfc/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.4.jar
 pfc/.gwt/.gwt-log
+
+syntax: regexp
+^pfc/war/WEB-INF/lib/appengine-api-1\.0-sdk-1\.6\.3\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/appengine-api-1\.0-sdk-1\.6\.3\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/appengine-api-labs-1\.6\.3\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/appengine-jsr107cache-1\.6\.3\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/datanucleus-appengine-1\.0\.10\.final\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/datanucleus-core-1\.1\.5\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/datanucleus-jpa-1\.1\.5\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/geronimo-jpa_3\.0_spec-1\.1\.1\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/geronimo-jta_1\.1_spec-1\.1\.1\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/jdo2-api-2\.3-eb\.jar$
+syntax: regexp
+^pfc/war/WEB-INF/lib/jsr107cache-1\.1\.jar$
