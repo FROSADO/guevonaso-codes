@@ -1,0 +1,15 @@
+<module>
+	<inherits name="com.google.gwt.user.User"/>
+	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
+	<inherits name="com.google.gwt.place.Place"/>
+	<inherits name="com.google.gwt.activity.Activity"/>
+	<inherits name="com.gwtext.GwtExt"/>
+	<inherits name="com.extjs.gxt.ui.GXT"/>
+	<entry-point class="es.fra.client.client.ImageViewer"/>
+	<replace-with class="es.fra.client.client.ClientFactoryImpl">
+		<when-type-is class="es.fra.client.client.ClientFactory"/>
+	</replace-with>
+	<stylesheet src="js/ext/resources/css/ext-all.css"/>
+	<script src="js/ext/adapter/ext/ext-base.js"/>
+	<script src="js/ext/ext-all.js"/>
+</module>
