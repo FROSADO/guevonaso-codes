@@ -1,42 +1,56 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Prueba Diagrama JS</title>
+        <script src="lib/json2.js" type="text/javascript"></script>
+        <script src="lib/raphael.js" type="text/javascript"></script>
+        <script src="lib/joint.js" type="text/javascript"></script>
+        <script src="lib/joint.arrows.js" type="text/javascript"></script>
+        <script src="lib/joint.dia.js" type="text/javascript"></script>
+        <script src="lib/joint.dia.serializer.js" type="text/javascript"></script>
+        <script src="lib/joint.dia.fsa.js" type="text/javascript"></script>
+        <script type="text/javascript" src="main.js"></script>
 
-<script src="lib/json2.js" type="text/javascript"></script>
-<script src="lib/raphael.js" type="text/javascript"></script>
-<script src="lib/joint.js" type="text/javascript"></script>
-<script src="lib/joint.arrows.js" type="text/javascript"></script>
-<script src="lib/joint.dia.js" type="text/javascript"></script>
-<script src="lib/joint.dia.serializer.js" type="text/javascript"></script>
-<script src="lib/joint.dia.fsa.js" type="text/javascript"></script>
-<script type="text/javascript" src="main.js"></script>
-</head>
+        <style type="text/css">
+            body {
+                background-color: #161c1c
+            }
 
-<style type="text/css">
-body {
-	background-color: #161c1c
-}
+            #world {
+                background-color: white;
+                margin: 0 auto 0 auto;
+                width: 800px;
+                height: 400px;
+                border: 3px solid gray;
+                border-radius: 30px;
+            }
+            label {
+                color: white;
+                display: inline-block;
+                width: 100px;
+                
+                
+            }
+        </style>
+    </head>
+    <body onload="init()">
 
-#world {
-	background-color: white;
-	margin: 0 auto 0 auto;
-	width: 800px;
-	height: 400px;
-	border: 3px solid gray;
-	border-radius: 30px;
-}
-</style>
+        
+        <label for="name">Estado nuevo:</label><input type="text" id="name" value="q0"/>
+        <input type="button" id="add" value="AÃ±ade estado" onclick="addState()"/>
+        <br />
+        <label for="origen">Origen</label>
+        <input type="text" id="origen" value="q0" /> 
+        <label for="destino">Destino</label>
+        <input type="text" id="destino"  value=""/>
+        <label for="destino">Etiqueta</label>
+        <input type="text" id="etiqueta"  value=""/>
+        
+        <input type="button" id="join" value="Join" onclick="joinStates()">	
+        <div id="world"></div>
 
-<body onload="init()">
-	
-	<input type="text" id="name" value="q0"/>
-	<input type="button" id="add" value="Añade estado" onclick="addState()"/>
-	<br />
-	<input type="text" id="origen" value="q0" /> <input type="text" id="destino"  value=""/>
-	<input type="button" id="join" value="Join" onclick="joinStates()">	
-	<div id="world"></div>
 
-	
-</body> 
+    </body> 
 
 </html>
