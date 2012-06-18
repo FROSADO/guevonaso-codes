@@ -1,6 +1,8 @@
 syntax: regexp
 blogspot-files/WebContent/WEB-INF/classes/*
 StateMachine/target/classes/es/fra/pfc/statemachine/*.class
+.*\.svn-base
+Quine-McCluskey/bin
 syntax: glob
 java-utils/target/classes/*
 java-utils/target/test-classes/*
@@ -23,6 +25,37 @@ pfc/war/WEB-INF/lib/appengine-api-labs-1.6.4.jar
 pfc/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.4.jar
 pfc/.gwt/.gwt-log
 
+pennychecker-eventbus/pennychecker-eventbus/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/eventbus_example/.svn/text-base/AppTest.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/eventbus_example/.svn/prop-base/AppTest.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/eventbus_example/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/eventbus_example/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/example/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/eventbus/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/pennychecker/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/com/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/java/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/test/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/model/.svn/text-base/User.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/model/.svn/prop-base/User.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/model/.svn/entries
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/model/.svn/all-wcprops
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/UserChangedEventHandler.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/UserChangedEvent.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/UserAddedEventHandler.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/UserAddedEvent.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/EditUserEventHandler.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/text-base/EditUserEvent.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/prop-base/UserChangedEventHandler.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/prop-base/UserChangedEvent.java.svn-base
+pennychecker-eventbus/pennychecker-eventbus-example/pennychecker-eventbus-example/src/main/java/com/pennychecker/eventbus/example/event/.svn/prop-base/UserAddedEventHandler.java.svn-base
 syntax: regexp
 ^pfc/war/WEB-INF/lib/appengine-api-1\.0-sdk-1\.6\.3\.jar$
 syntax: regexp
