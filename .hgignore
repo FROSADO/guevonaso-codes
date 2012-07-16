@@ -3,6 +3,7 @@ blogspot-files/WebContent/WEB-INF/classes/*
 StateMachine/target/classes/es/fra/pfc/statemachine/*.class
 .*\.svn-base
 Quine-McCluskey/bin
+MainProject/target/*
 syntax: glob
 java-utils/target/classes/*
 java-utils/target/test-classes/*
