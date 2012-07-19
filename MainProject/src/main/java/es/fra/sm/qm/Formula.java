@@ -149,7 +149,9 @@ public class Formula implements Cloneable {
 	}
 
 	public void addTerm(Term term) {
-		this.getTermList().add(term);
+		if (term != null) {
+			this.getTermList().add(term);
+		}
 	}
 
 	public void reducePrimeImplicantsToSubset() {
