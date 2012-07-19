@@ -1,8 +1,7 @@
 package es.fra.sm.service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 import es.fra.sm.model.TermValue;
 
@@ -51,9 +50,8 @@ public class StateCoder {
 	 *            a list of states.
 	 * @return
 	 */
-	public static TermValue[][] codeStates(List<String> states) {
-		final HashMap<String, Integer> stateValues = new HashMap<String, Integer>(
-				states.size());
+	public static TermValue[][] codeStates(Collection<String> states) {
+		final LinkedHashMap<String, Integer> stateValues = new LinkedHashMap<String, Integer>();
 
 		int x = 0;
 		for (final String string : states) {

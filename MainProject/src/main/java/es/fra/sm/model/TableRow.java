@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableRow implements Serializable {
+public class TableRow implements Serializable, Comparable<TableRow> {
 	/**
 	 * 
 	 */
@@ -135,6 +135,75 @@ public class TableRow implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public int compareTo(TableRow other) {
+		if (this == other) {
+			return 0;
+		}
+		int compareTo = this.fieldCompare(this.startState,other.startState);
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		compareTo = this.fieldCompare(this.finalState,other.finalState);
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		// First Let's compare only the size
+
+		compareTo = this.getInputValue().size() - other.getInputValue().size();
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		for (int i = 0; i< this.getInputValue().size(); i++) {
+			final TermValue thisValue = this.getInputValue().get(i);
+			final TermValue otherValue = other.getInputValue().get(i);
+			compareTo = thisValue.compareTo(otherValue);
+			if (compareTo != 0) {
+				return compareTo;
+			}
+
+
+		}
+
+		compareTo = this.getOutputValue().size() - other.getOutputValue().size();
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		for (int i =0; i< this.getOutputValue().size(); i++) {
+			final TermValue thisValue = this.getOutputValue().get(i);
+			final TermValue otherValue = other.getOutputValue().get(i);
+			compareTo = thisValue.compareTo(otherValue);
+			if (compareTo != 0) {
+				return compareTo;
+			}
+
+
+		}
+		return 0;
+
+
+
+
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> int fieldCompare (Comparable<T> one, Comparable<T> other) {
+		if (one != null) {
+			if (other != null) {
+				return one.compareTo((T) other);
+			} else {
+				return +1;
+			}
+		} else {
+			if (other == null) {
+				return 0;
+			} else {
+				return -1;
+			}
+		}
 	}
 
 }

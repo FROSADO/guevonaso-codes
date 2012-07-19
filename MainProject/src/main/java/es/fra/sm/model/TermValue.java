@@ -1,8 +1,10 @@
 package es.fra.sm.model;
 
-public enum TermValue {
+import java.io.Serializable;
 
-	Zero("0"), One("1"), DontCare("X");
+public enum TermValue implements Serializable{
+
+	DontCare("X"),Zero("0"),One("1");
 	private final String	format;
 
 	TermValue(final String format) {
