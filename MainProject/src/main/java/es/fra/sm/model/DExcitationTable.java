@@ -38,5 +38,10 @@ public class DExcitationTable extends ExcitationTable {
 		}
 	}
 
+	@Override
+	protected String functionLabel(int i) {
+		return "D" + i;
+	}
+
 
 }

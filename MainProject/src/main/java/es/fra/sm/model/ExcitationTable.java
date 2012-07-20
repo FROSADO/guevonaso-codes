@@ -1,5 +1,6 @@
 package es.fra.sm.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,7 +25,7 @@ public abstract class ExcitationTable {
 		final int num_exc_formulas = flipFlops * multiplier;
 		final Formula[] formulas  = new Formula[num_exc_formulas];
 		for (int i = 0; i < num_exc_formulas; i++) {
-			formulas[i] = new Formula();
+			formulas[i] = new Formula(this.functionLabel(i));
 		}
 		final Set<Entry<String, MooreState>> mooreStates = states.entrySet();
 
@@ -49,42 +50,55 @@ public abstract class ExcitationTable {
 
 		}
 
+		// ----
 
-		//
-		// for (final TableRow row : rows) {
-		// final String startState = row.getStartState().toUpperCase();
-		// final String finalState = row.getFinalState().toUpperCase();
-		// final TermValue[] codeStart = states.get(startState);
-		// final TermValue[] codeFinal = states.get(finalState);
-		// final List<TermValue> inputs = row.getInputValue();
-		// final List<TermValue> outputs = row.getOutputValue();
-		// for (int i = 0; i < codeFinal.length; i++) {
-		// final TermValue termStart = codeStart[i];
-		// final TermValue termFinal = codeFinal[i];
-		// final List<Term> terms = this.calculateTerm(termStart,
-		// termFinal, inputs, outputs);
-		// this.addToFormula(i, terms);
-		//
-		// }
-		// }
-
-		// TODO Auto-generated method stub
-		return null;
+		return formulas;
 	}
 
+	protected abstract String functionLabel(int i);
+
+	/**
+	 * Esta funcion devolverá la lista de terminos en función del número de funciones necesarias.
+	 * Por ejemplo: 
+	 * Q  JK JK
+	 * 00 00 00
+	 * 01 00 00 ...etc --> 4 Funciones de exitacion J0K0 J1K1
+	 * 
+	 * 
+	 * @param code
+	 * @param nextCode
+	 * @param inputs
+	 * @return
+	 */
 	private Term[] calculateTerms(TermValue[] code, TermValue[] nextCode,
 			List<TermValue> inputs) {
 
-		// TODO Auto-generated method stub
+		final List<Term> result = new ArrayList<>();
 		for (int i = 0; i < code.length; i++) {
 			final TermValue currentState = code[i];
 			final TermValue nextState = nextCode[i];
 			final TermValue[] func = this.excitationFuntion(currentState, nextState);
+			for (final TermValue excFunc : func) {
+				if (excFunc == TermValue.One) {
+					// It's Term
+					final TermValue[] inputsArray = inputs.toArray(new TermValue[inputs.size()]);
 
+
+					final Term term = new Term(inputs.size() + 1);
+					term.setVarOn(0, currentState);
+					for(int j=1; j < term.getNumVars(); j++) {
+
+						term.setVarOn(j,inputsArray[j-1]);
+					}
+					result.add(term);
+				} else {
+					result.add(null);
+				}
+			}
 
 
 		}
-		return null;
+		return result.toArray(new Term[result.size()]);
 	}
 
 

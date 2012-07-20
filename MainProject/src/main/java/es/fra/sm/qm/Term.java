@@ -8,13 +8,23 @@ public class Term implements Cloneable {
 
 	private final TermValue[]	varVals;
 
-	public Term(TermValue[] varVals) {
+	public Term(int size) {
+		this.varVals = new TermValue[size];
+	}
+	public Term(TermValue ... varVals) {
 		this.varVals = varVals;
 	}
 
 	public int getNumVars() {
 		return this.varVals.length;
 	}
+
+	public void setVarOn (int pos,TermValue value) {
+		// TODO check array size..?
+		this.varVals[pos] = value;
+	}
+
+
 
 	@Override
 	public String toString() {
