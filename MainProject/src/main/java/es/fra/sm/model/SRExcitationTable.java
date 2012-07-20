@@ -2,16 +2,17 @@ package es.fra.sm.model;
 
 public class SRExcitationTable extends ExcitationTable {
 
-	@Override
-	boolean isMinTerm(TermValue currentState, TermValue nextState) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	int functionsByFlipFlop() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 2;
+	}
+
+	@Override
+	TermValue[] excitationFuntion(TermValue currentState, TermValue nextState) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
