@@ -11,6 +11,9 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
+import es.fra.sm.qm.Formula;
+import es.fra.sm.qm.Term;
+
 public class TestMooreTable {
 
 	@Test
@@ -24,6 +27,13 @@ public class TestMooreTable {
 				new TableRow("B", "A", new TermValue[] { One },	new TermValue[] { One }) //
 
 		};//@formatter:on
+
+		// State | Next | Input | Output | D Excitation
+		// A  (0)|  A(0)| 0     |  0     | 0
+		// A  (0)|  B(1)| 1     |  0     | 1 --> -AI --> 01 
+		// B  (1)|  B(1)| 0     |  1     | 1 --> B-I --> 10
+		// B  (1)|  A(0)| 1     |  1     | 0
+		// 
 		for (final TableRow tableRow : row) {
 			table.addRow(tableRow);
 		}
@@ -34,6 +44,24 @@ public class TestMooreTable {
 		for (final MooreState expected : expected1) {
 			Assert.assertEquals(expected, states.get(expected.getName()));
 		}
+
+		// LEt's verify excitation tables
+		final Formula[] formulas = table.generateExcitationFormulas(new DExcitationTable());
+		// First lets verify size . 2 States, D FlipFlop --> 1 Excitation Formula
+		// D0 = 1,2  
+
+		//@formatter:off
+		final Formula[] expected = new Formula[] {
+				new Formula("D0",
+						new Term(Zero,One), // 1
+						new Term(One,Zero)  // 2
+						)
+		};
+		//@formatter:on
+		Assert.assertEquals(1,formulas.length);
+		Assert.assertArrayEquals(expected, formulas);
+		formulas[0].reduceToPrimeImplicants();
+		formulas[0].reducePrimeImplicantsToSubset();
 
 	}
 
@@ -91,6 +119,21 @@ public class TestMooreTable {
 
 
 		};//@formatter:on
+
+		// State | Next | Input | Output | Excitation
+		//	q0		q0		0		0		
+		//	q0		q1		1		0
+		//	q1		q1		0		1		
+		//	q1		q2		1		1		
+		//	q2		q2		0		0
+		//	q2		q3		1		0
+		//	q3		q3		0		1
+		//	q3		q0		1		1
+		//			
+
+
+
+
 		for (final TableRow tableRow : row) {
 			table.addRow(tableRow);
 		}

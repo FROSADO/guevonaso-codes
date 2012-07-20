@@ -61,7 +61,7 @@ public class MooreTable implements Serializable {
 		return this.states;
 	}
 
-	public Formula[] generateFormulas(ExcitationTable excitation) {
+	public Formula[] generateExcitationFormulas(ExcitationTable excitation) {
 		// Lets calculate excitation tables
 		return excitation.getFormulas(this.getStates());
 
