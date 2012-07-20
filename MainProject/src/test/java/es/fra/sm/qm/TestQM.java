@@ -12,8 +12,6 @@ import es.fra.sm.model.TermValue;
 public class TestQM {
 
 	private static final int	TEST_FILES	= 6;
-	private static final int	ITERATIONS	= 10000;
-
 	public static Term readTerm(InputStream reader) throws IOException {
 		int c = '\0';
 		final ArrayList<TermValue> t = new ArrayList<TermValue>();
