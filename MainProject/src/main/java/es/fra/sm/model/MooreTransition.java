@@ -85,4 +85,6 @@ public class MooreTransition implements Serializable {
 				+ ", nextState=" + this.nextState + "]";
 	}
 
+	
+
 }

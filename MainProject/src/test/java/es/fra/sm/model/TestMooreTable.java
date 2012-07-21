@@ -27,18 +27,23 @@ public class TestMooreTable {
 				new TableRow("B", "A", new TermValue[] { One },	new TermValue[] { One }) //
 
 		};//@formatter:on
+			// Qn | Qn+1 | D
+			// 0 | 0 | 0
+			// 0 | 1 | 1
+			// 1 | 0 | 0
+			// 1 | 1 | 1
 
 		// State | Next | Input | Output | D Excitation
-		// A  (0)|  A(0)| 0     |  0     | 0
-		// A  (0)|  B(1)| 1     |  0     | 1 --> -AI --> 01 
-		// B  (1)|  B(1)| 0     |  1     | 1 --> B-I --> 10
-		// B  (1)|  A(0)| 1     |  1     | 0
-		// 
+		// A (0)| A(0)| 0 | 0 | 0
+		// A (0)| B(1)| 1 | 0 | 1 --> -AI --> 01
+		// B (1)| B(1)| 0 | 1 | 1 --> B-I --> 10
+		// B (1)| A(0)| 1 | 1 | 0
+		//
 		for (final TableRow tableRow : row) {
 			table.addRow(tableRow);
 		}
 		// Let's verify output
-		final Map<String,MooreState> states = table.getStates();
+		final Map<String, MooreState> states = table.getStates();
 		// Expected estates :
 		final List<MooreState> expected1 = this.expected1();
 		for (final MooreState expected : expected1) {
@@ -46,9 +51,11 @@ public class TestMooreTable {
 		}
 
 		// LEt's verify excitation tables
-		final Formula[] formulas = table.generateExcitationFormulas(new DExcitationTable());
-		// First lets verify size . 2 States, D FlipFlop --> 1 Excitation Formula
-		// D0 = 1,2  
+		final Formula[] formulas = table
+				.generateExcitationFormulas(new DExcitationTable());
+		// First lets verify size . 2 States, D FlipFlop --> 1 Excitation
+		// Formula
+		// D0 = 1,2
 
 		//@formatter:off
 		final Formula[] expected = new Formula[] {
@@ -58,7 +65,7 @@ public class TestMooreTable {
 						)
 		};
 		//@formatter:on
-		Assert.assertEquals(1,formulas.length);
+		Assert.assertEquals(1, formulas.length);
 		Assert.assertArrayEquals(expected, formulas);
 		formulas[0].reduceToPrimeImplicants();
 		formulas[0].reducePrimeImplicantsToSubset();
@@ -100,8 +107,9 @@ public class TestMooreTable {
 		states.add(b);
 		return states;
 	}
+
 	/**
-	 * This test verify that four states works. 
+	 * This test verify that four states works.
 	 */
 	@Test
 	public void fourStatesTest() {
@@ -118,35 +126,62 @@ public class TestMooreTable {
 				new TableRow("Q3", "Q0", new TermValue[] { One },	new TermValue[] { One }) //
 
 
-		};//@formatter:on
+		};//
+			// Qn | Qn+1 | D
+			// 0 | 0 | 0
+			// 0 | 1 | 1
+			// 1 | 0 | 0
+			// 1 | 1 | 1
 
 		// State | Next | Input | Output | Excitation
-		//	q0		q0		0		0		
-		//	q0		q1		1		0
-		//	q1		q1		0		1		
-		//	q1		q2		1		1		
-		//	q2		q2		0		0
-		//	q2		q3		1		0
-		//	q3		q3		0		1
-		//	q3		q0		1		1
-		//			
-
-
-
-
+		// qo(00) qo(00) 	0 		0 		00
+		// qo(00) q1(01) 	1 		0 		01 --> D1 001
+		// q1(01) q1(01) 	0 		1 		01 --> D1 010
+		// q1(01) q2(11) 	1 		1 		11 -->D0D1 011
+		// q2(11) q2(11) 	0 		0 		11 -->D0D1 110
+		// q2(11) q3(10) 	1 		0 		10 -->D0 111
+		// q3(10) q3(10) 	0 		1 		10 -->D0 100
+		// q3(10) qo(00) 	1 		1 		00
+		//
+		// D0 = 3,4,6,7 D1 = 1,2,3,6
+		//@formatter:on
 		for (final TableRow tableRow : row) {
 			table.addRow(tableRow);
 		}
 		// Let's verify output
-		final Map<String,MooreState> states = table.getStates();
+		final Map<String, MooreState> states = table.getStates();
 		// Expected estates :
 		final List<MooreState> expected4 = this.expected4();
 		for (final MooreState expected : expected4) {
 			Assert.assertEquals(expected, states.get(expected.getName()));
 		}
+		// LEt's verify excitation tables
+		final Formula[] formulas = table
+				.generateExcitationFormulas(new DExcitationTable());
+
+		//@formatter:off
+		// TODO ¿Porque este orden?
+		final Formula[] expected = new Formula[] {
+			new Formula("D0",
+				new Term(Zero,One,One), // 3
+				new Term(One,One,Zero),// 6
+				new Term(One,One,One), // 7
+			new Term(One,Zero,Zero)  // 4
+			),
+			new Formula("D1",
+				new Term (Zero,Zero,One),// 1
+				new Term (Zero,One,Zero),// 2
+				new Term(Zero,One,One), // 3
+				new Term(One,One,Zero) // 6
+		)
+		};
+		//@formatter:on
+		Assert.assertEquals(2, formulas.length);
+		Assert.assertArrayEquals(expected, formulas);
+		formulas[0].reduceToPrimeImplicants();
+		formulas[0].reducePrimeImplicantsToSubset();
 
 	}
-
 
 	private List<MooreState> expected4() {
 		final List<MooreState> results = new ArrayList<>();
@@ -161,7 +196,7 @@ public class TestMooreTable {
 		t.setNextState("Q1");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { Zero }));
-		mooreState.setCodeValue(new TermValue[] {Zero,Zero});
+		mooreState.setCodeValue(new TermValue[] { Zero, Zero });
 		results.add(mooreState);
 		// --- Q1
 		mooreState = new MooreState("Q1");
@@ -175,7 +210,7 @@ public class TestMooreTable {
 		t.setNextState("Q2");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { One }));
-		mooreState.setCodeValue(new TermValue[] {Zero,One});
+		mooreState.setCodeValue(new TermValue[] { Zero, One });
 		results.add(mooreState);
 		// --- Q2
 		mooreState = new MooreState("Q2");
@@ -189,7 +224,7 @@ public class TestMooreTable {
 		t.setNextState("Q3");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { Zero }));
-		mooreState.setCodeValue(new TermValue[] {One,One});
+		mooreState.setCodeValue(new TermValue[] { One, One });
 		results.add(mooreState);
 		// --- Q3
 		mooreState = new MooreState("Q3");
@@ -203,10 +238,11 @@ public class TestMooreTable {
 		t.setNextState("Q0");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { One }));
-		mooreState.setCodeValue(new TermValue[] {One,Zero});
+		mooreState.setCodeValue(new TermValue[] { One, Zero });
 		results.add(mooreState);
 		return results;
 	}
+
 	@Test
 	public void fourStatesNotOrderedTest() {
 
@@ -215,29 +251,84 @@ public class TestMooreTable {
 				new TableRow("A0", "A0", new TermValue[] { Zero },new TermValue[] { Zero }), //
 				new TableRow("S 2", "S 2", new TermValue[] { Zero },new TermValue[] { Zero }), //
 				new TableRow("State 1", "State 1", new TermValue[] { Zero },new TermValue[] { One }), //
-				new TableRow("State 1", "S 2", new TermValue[] { One },	new TermValue[] { One }), //
 				new TableRow("State 3", "State 3", new TermValue[] { Zero },new TermValue[] { One }), //
+				new TableRow("State 1", "S 2", new TermValue[] { One },	new TermValue[] { One }), //
 				new TableRow("S 2", "State 3", new TermValue[] { One },	new TermValue[] { Zero }), //
 				new TableRow("A0", "State 1", new TermValue[] { One },	new TermValue[] { Zero }), //
 				new TableRow("State 3", "A0", new TermValue[] { One },	new TermValue[] { One }) //
 
+			
+		};
+		// Qn | Qn+1 | D
+		// 0 | 0 | 0
+		// 0 | 1 | 1
+		// 1 | 0 | 0
+		// 1 | 1 | 1
+		// Table coded by alphabetic order
+		// State | Next | Input | Output | Excitation
+		// A0(00) A0(00) 	0 		0 		00
+		// A0(00) St1(11) 	1 		0 		11 -->D0D1 001
+		// St1(11) St1(11) 	0 		1 		11 -->D0D1 110
+		// St1(11) S2(01) 	1 		1 		01 -->D1   111
+		// S2(01) S2(01) 	0 		0 		01 -->D1 010
+		// S2(01) St3(10) 	1 		0 		10 -->D0 011
+		// St3(10) St3(10) 	0 		1 		10 -->D0 100
+		// St3(10) A0(00) 	1 		1 		00
+		//
+		// D0 = 1,6,3,4 D1 = 1,6,7,2
 
-		};//@formatter:on
+		//@formatter:on
 		for (final TableRow tableRow : row) {
 			table.addRow(tableRow);
 		}
 		// Let's verify output
-		final Map<String,MooreState> states = table.getStates();
+		final Map<String, MooreState> states = table.getStates();
 		// Expected estates :
 		final List<MooreState> expected4 = this.expected4NotOrder();
 		final Iterator<MooreState> itExpected = expected4.iterator();
 		while (itExpected.hasNext()) {
 			final MooreState expected = itExpected.next();
 			final MooreState mooreState = states.get(expected.getName());
-			Assert.assertEquals(expected,mooreState);
+			Assert.assertEquals(expected, mooreState);
 
 		}
+		// LEt's verify excitation tables
+		final Formula[] formulas = table
+				.generateExcitationFormulas(new DExcitationTable());
+
+		//@formatter:off
+		// D0 = 1,6,3,4 D1 = 1,6,7,2
+				// TODO ¿Porque este orden?
+				final Formula[] expected = new Formula[] {
+					new Formula("D0",
+						new Term(Zero,Zero,One), // 1
+						new Term(Zero,One,One), // 3
+						new Term(One,One,Zero),// 6
+						new Term(One,Zero,Zero)  // 4
+					),
+					new Formula("D1",
+						new Term (Zero,Zero,One),// 1
+						new Term (Zero,One,Zero),// 2
+						new Term(One,One,Zero), // 6
+						new Term(One,One,One) // 7
+				)
+				};
+				//@formatter:on
+		Assert.assertEquals(2, formulas.length);
+		Assert.assertArrayEquals(expected, formulas);
+		formulas[0].reduceToPrimeImplicants();
+		System.out.println(formulas[0]);
+		formulas[0].reducePrimeImplicantsToSubset();
+		List<Term> reduced = formulas[0].getTermList();
+		System.out.println(formulas[0]);
+		formulas[1].reduceToPrimeImplicants();
+		System.out.println(formulas[1]);
+		formulas[1].reducePrimeImplicantsToSubset();
+		reduced = formulas[1].getTermList();
+		System.out.println(formulas[1]);
+
 	}
+
 	private List<MooreState> expected4NotOrder() {
 		final List<MooreState> results = new ArrayList<>();
 		MooreState mooreState = new MooreState("A0");
@@ -251,7 +342,7 @@ public class TestMooreTable {
 		t.setNextState("State 1");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { Zero }));
-		mooreState.setCodeValue(new TermValue[] {Zero,Zero});
+		mooreState.setCodeValue(new TermValue[] { Zero, Zero });
 		results.add(mooreState);
 
 		// --- Q2
@@ -266,7 +357,7 @@ public class TestMooreTable {
 		t.setNextState("State 3");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { Zero }));
-		mooreState.setCodeValue(new TermValue[] {Zero,One});
+		mooreState.setCodeValue(new TermValue[] { Zero, One });
 		results.add(mooreState);
 		// --- State 1
 		mooreState = new MooreState("State 1");
@@ -280,7 +371,7 @@ public class TestMooreTable {
 		t.setNextState("S 2");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { One }));
-		mooreState.setCodeValue(new TermValue[] {One,One});
+		mooreState.setCodeValue(new TermValue[] { One, One });
 		results.add(mooreState);
 		// --- State 3
 		mooreState = new MooreState("State 3");
@@ -294,9 +385,46 @@ public class TestMooreTable {
 		t.setNextState("A0");
 		mooreState.addTransition(t);
 		mooreState.setOutput(new MooreOutput(new TermValue[] { One }));
-		mooreState.setCodeValue(new TermValue[] {One,Zero});
+		mooreState.setCodeValue(new TermValue[] { One, Zero });
 		results.add(mooreState);
 		return results;
+	}
+
+	@Test
+	public void testSampleOne() {
+		final MooreTable table = new MooreTable();
+		final TableRow[] row = new TableRow[] {//@formatter:off
+			new TableRow("A", "A", new TermValue[] { Zero,Zero },new TermValue[] { Zero }), //
+			new TableRow("A", "B", new TermValue[] { Zero,One },new TermValue[] { Zero }), //
+			new TableRow("A", "B", new TermValue[] { One,Zero },new TermValue[] { Zero }), //
+			new TableRow("B", "C", new TermValue[] { Zero,Zero },new TermValue[] { One }), //
+			new TableRow("B", "B", new TermValue[] { Zero,One },new TermValue[] { One }), //
+			new TableRow("B", "B", new TermValue[] { One,Zero },	new TermValue[] { One }), //
+			new TableRow("C", "C", new TermValue[] { Zero,Zero },	new TermValue[] { One }), //
+			new TableRow("C", "D", new TermValue[] { Zero,One },new TermValue[] { One }), //
+			new TableRow("C", "D", new TermValue[] { One,Zero },	new TermValue[] { One }), //
+			new TableRow("D", "A", new TermValue[] { Zero,Zero },	new TermValue[] { One }), //
+			new TableRow("D", "D", new TermValue[] { Zero,One },new TermValue[] { One }), //
+			new TableRow("D", "D", new TermValue[] { One,Zero },	new TermValue[] { One }) //
+	};//
+	
+	//@formatter:on
+		for (final TableRow tableRow : row) {
+			table.addRow(tableRow);
+		}
+		Formula[] formulas = table.generateExcitationFormulas(new DExcitationTable());
+		System.out.println(formulas[0]);
+		formulas[0].reduceToPrimeImplicants();
+		System.out.println(formulas[0]);
+		formulas[0].reducePrimeImplicantsToSubset();
+		System.out.println(formulas[0]);
+		System.out.println("------------------------------------------------------------------");
+		System.out.println(formulas[1]);
+		formulas[1].reduceToPrimeImplicants();
+		System.out.println(formulas[1]);
+		formulas[1].reducePrimeImplicantsToSubset();
+		System.out.println(formulas[1]);
+		
 	}
 
 }

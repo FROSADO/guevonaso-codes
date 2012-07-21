@@ -1,30 +1,31 @@
 package es.fra.sm.qm;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.fra.sm.model.TermValue;
 
 public class Term implements Cloneable {
 
-	private final TermValue[]	varVals;
+	private final List<TermValue>	varVals;
 
-	public Term(int size) {
-		this.varVals = new TermValue[size];
+	
+
+	public Term(int initialSize) {
+		this.varVals = new ArrayList<>(initialSize);
+
 	}
-	public Term(TermValue ... varVals) {
-		this.varVals = varVals;
+
+	public Term(TermValue... varVals) {
+		this(varVals.length);
+		for (TermValue termValue : varVals) {
+			this.varVals.add(termValue);
+		}
 	}
 
 	public int getNumVars() {
-		return this.varVals.length;
+		return this.varVals.size();
 	}
-
-	public void setVarOn (int pos,TermValue value) {
-		// TODO check array size..?
-		this.varVals[pos] = value;
-	}
-
-
 
 	@Override
 	public String toString() {
@@ -56,8 +57,8 @@ public class Term implements Cloneable {
 	 */
 	public Term combine(Term term) {
 		int diffVarNum = -1; // The position where they differ
-		for (int i = 0; i < this.varVals.length; i++) {
-			if (this.varVals[i] == term.varVals[i]) {
+		for (int i = 0; i < this.varVals.size(); i++) {
+			if (this.varVals.get(i) == term.varVals.get(i)) {
 				continue;
 			}
 			if (diffVarNum == -1) {
@@ -73,7 +74,8 @@ public class Term implements Cloneable {
 			return null;
 		}
 		// Let's return a new Term with
-		final TermValue[] resultVars = this.varVals.clone();
+		final TermValue[] resultVars = this.varVals.toArray(
+				new TermValue[varVals.size()]).clone();
 		resultVars[diffVarNum] = TermValue.DontCare;
 		return new Term(resultVars);
 	}
@@ -81,7 +83,8 @@ public class Term implements Cloneable {
 	@Override
 	protected Term clone() throws CloneNotSupportedException {
 
-		return new Term(this.varVals.clone());
+		return new Term(this.varVals.toArray(
+				new TermValue[varVals.size()]).clone());
 	}
 
 	/**
@@ -112,20 +115,49 @@ public class Term implements Cloneable {
 	 * @return
 	 */
 	boolean implies(Term term) {
-		for (int i = 0; i < this.varVals.length; i++) {
-			if ((this.varVals[i] != TermValue.DontCare)
-					&& (this.varVals[i] != term.varVals[i])) {
+		for (int i = 0; i < this.varVals.size(); i++) {
+			if ((this.varVals.get(i) != TermValue.DontCare)
+					&& (this.varVals.get(i) != term.varVals.get(i))) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	
+
+	public boolean add(TermValue e) {
+		return varVals.add(e);
+	}
+
+	public void clear() {
+		varVals.clear();
+	}
+
+	public void add(int index, TermValue element) {
+		varVals.add(index, element);
+	}
+
+	/**
+	 * Add all values to current Term. 
+	 * 
+	 * @param code
+	 */
+	public void addAll(TermValue[] code) {
+		for (TermValue termValue : code) {
+			this.varVals.add(termValue);
+		}
+
+	}
+
+	public void addAll(List<TermValue> inputs) {
+		this.varVals.addAll(inputs);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (prime * result) + Arrays.hashCode(this.varVals);
+		result = prime * result + ((varVals == null) ? 0 : varVals.hashCode());
 		return result;
 	}
 
@@ -137,14 +169,19 @@ public class Term implements Cloneable {
 		if (obj == null) {
 			return false;
 		}
-		if (this.getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final Term other = (Term) obj;
-		if (!Arrays.equals(this.varVals, other.varVals)) {
+		Term other = (Term) obj;
+		if (varVals == null) {
+			if (other.varVals != null) {
+				return false;
+			}
+		} else if (!varVals.equals(other.varVals)) {
 			return false;
 		}
 		return true;
 	}
 
+	
 }

@@ -8,10 +8,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import es.fra.sm.model.TermValue;
+import static es.fra.sm.model.TermValue.*;
 
 public class TestQM {
 
 	private static final int	TEST_FILES	= 6;
+
 	public static Term readTerm(InputStream reader) throws IOException {
 		int c = '\0';
 		final ArrayList<TermValue> t = new ArrayList<TermValue>();
@@ -73,5 +75,7 @@ public class TestQM {
 		}
 
 	}
+
+
 
 }

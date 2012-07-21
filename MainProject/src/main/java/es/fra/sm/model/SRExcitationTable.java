@@ -15,4 +15,11 @@ public class SRExcitationTable extends ExcitationTable {
 		return null;
 	}
 
+	@Override
+	protected String functionLabel(int i) {
+		
+		return (i%2)==0?"R":"S";
+	}
+
+
 }
