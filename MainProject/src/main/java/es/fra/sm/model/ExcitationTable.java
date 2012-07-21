@@ -28,11 +28,12 @@ public abstract class ExcitationTable {
 			formulas[i] = new Formula(this.functionLabel(i));
 		}
 		final Set<Entry<String, MooreState>> mooreStates = states.entrySet();
+		
 
 		for (final Entry<String, MooreState> entry : mooreStates) {
 			final MooreState value = entry.getValue();
 			final TermValue[] code = value.getCodeValue();
-			final Set<MooreTransition> transitions = value.getTransitions();
+			final List<MooreTransition> transitions = value.getTransitions();
 			for (final MooreTransition mooreTransition : transitions) {
 				final String next = mooreTransition.getNextState();
 				final TermValue[] nextCode = states.get(next).getCodeValue();
@@ -51,7 +52,6 @@ public abstract class ExcitationTable {
 		}
 
 		// ----
-
 		return formulas;
 	}
 
@@ -80,16 +80,10 @@ public abstract class ExcitationTable {
 			final TermValue[] func = this.excitationFuntion(currentState, nextState);
 			for (final TermValue excFunc : func) {
 				if (excFunc == TermValue.One) {
-					// It's Term
-					final TermValue[] inputsArray = inputs.toArray(new TermValue[inputs.size()]);
-
-
-					final Term term = new Term(inputs.size() + 1);
-					term.setVarOn(0, currentState);
-					for(int j=1; j < term.getNumVars(); j++) {
-
-						term.setVarOn(j,inputsArray[j-1]);
-					}
+					// It's Term. Let's generate a term with all code and inputs
+					final Term term = new Term(inputs.size() + code.length);
+					term.addAll(code);
+					term.addAll(inputs);
 					result.add(term);
 				} else {
 					result.add(null);

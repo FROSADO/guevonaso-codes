@@ -1,9 +1,12 @@
 package es.fra.sm.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class MooreState implements Serializable{
 
@@ -16,16 +19,16 @@ public class MooreState implements Serializable{
 
 	private MooreOutput				output;
 
-	private Set<MooreTransition>	transitions;
+	private List<MooreTransition>	transitions;
 
 	public MooreState(String stateName) {
 		this.name = stateName;
 
 	}
 
-	public Set<MooreTransition> getTransitions() {
+	public List<MooreTransition> getTransitions() {
 		if (this.transitions == null) {
-			this.transitions = new HashSet<>();
+			this.transitions = new ArrayList<>();
 		}
 		return this.transitions;
 	}
@@ -42,9 +45,6 @@ public class MooreState implements Serializable{
 		return this.getTransitions().add(input);
 	}
 
-	public void setTransitions(Set<MooreTransition> inputs) {
-		this.transitions = inputs;
-	}
 
 	public void setName(String name) {
 		this.name = name;

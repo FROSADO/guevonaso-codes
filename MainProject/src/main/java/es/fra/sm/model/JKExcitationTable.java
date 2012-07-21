@@ -16,4 +16,12 @@ public class JKExcitationTable extends ExcitationTable {
 		return null;
 	}
 
+	@Override
+	protected String functionLabel(int i) {
+		
+		return (i%2)==0?"K":"J";
+	}
+
+
+
 }
