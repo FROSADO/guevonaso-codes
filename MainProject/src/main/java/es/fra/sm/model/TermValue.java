@@ -2,9 +2,9 @@ package es.fra.sm.model;
 
 import java.io.Serializable;
 
-public enum TermValue implements Serializable{
+public enum TermValue implements Serializable {
 
-	DontCare("X"),Zero("0"),One("1");
+	DontCare("X"), Zero("0"), One("1");
 	private final String	format;
 
 	TermValue(final String format) {
@@ -47,11 +47,15 @@ public enum TermValue implements Serializable{
 	 * @return
 	 */
 	public static TermValue getValue(Integer c) {
-		if (c == 0) {
+		if (c == null) {
+			return DontCare;
+		}
+		switch (c) {
+		case 0:
 			return Zero;
-		} else if (c == 1) {
+		case 1:
 			return One;
-		} else {
+		default:
 			return DontCare;
 		}
 	}
