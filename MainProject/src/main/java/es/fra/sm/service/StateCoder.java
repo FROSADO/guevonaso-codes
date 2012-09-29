@@ -66,8 +66,9 @@ public final class StateCoder {
 		final int bitLength = bitX.length();
 		final TermValue[][] result = new TermValue[xvalues.size()][bitLength];
 
-		// TODO always gray
+		// TODO Solo calcula usando Gray.
 		for (int i = 0; i < x; i++) {
+			// Esta es la manera de calcular el valor gray usando java.
 			String grayValue = Integer.toBinaryString((i >> 1) ^ i);
 			final int z = bitLength - grayValue.length();
 			for (int j = 0; j < z; j++) {
