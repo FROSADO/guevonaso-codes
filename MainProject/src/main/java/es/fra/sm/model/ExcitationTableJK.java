@@ -1,6 +1,7 @@
 package es.fra.sm.model;
 
-public class SRExcitationTable extends ExcitationTable {
+public class ExcitationTableJK extends ExcitationTable {
+
 
 
 	@Override
@@ -18,8 +19,9 @@ public class SRExcitationTable extends ExcitationTable {
 	@Override
 	protected String functionLabel(int i) {
 		
-		return (i%2)==0?"R":"S";
+		return (i%2)==0?"K":"J";
 	}
+
 
 
 }

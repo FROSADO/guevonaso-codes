@@ -7,8 +7,8 @@ public abstract class State implements Serializable {
 	 * 
 	 */
 	private static final long	serialVersionUID	= -6981747368193209882L;
-	private String	label;
-	private Integer	position;
+	private String				label;
+	private Integer				position;
 
 	// TODO El estado como una lista de terminos puede se calculado. ¿Es mejor
 	// almacenarlo?
@@ -18,6 +18,7 @@ public abstract class State implements Serializable {
 		this.label = label;
 		this.position = position;
 	}
+
 
 	public String getLabel() {
 		return label;
@@ -47,5 +48,42 @@ public abstract class State implements Serializable {
 		return output;
 
 	}
+	@Override
+	public String toString() {
+		return "State [label=" + label + ", position=" + position + "]";
+	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		result = prime * result
+				+ ((position == null) ? 0 : position.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		State other = (State) obj;
+		if (label == null) {
+			if (other.label != null)
+				return false;
+		} else if (!label.equals(other.label))
+			return false;
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
+			return false;
+		return true;
+	}
 }

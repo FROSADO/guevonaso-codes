@@ -2,7 +2,7 @@ package es.fra.sm.model;
 
 import static es.fra.sm.model.TermValue.One;
 import static es.fra.sm.model.TermValue.Zero;
-public class DExcitationTable extends ExcitationTable {
+public class ExcitationTableD extends ExcitationTable {
 
 
 	@Override
