@@ -10,14 +10,12 @@ public class Term implements Cloneable {
 	private final List<TermValue>	varVals;
 
 	
-
-	public Term(int initialSize) {
-		this.varVals = new ArrayList<>(initialSize);
-
+	public Term() {
+		this.varVals = new ArrayList<>();
 	}
 
 	public Term(TermValue... varVals) {
-		this(varVals.length);
+		this.varVals = new ArrayList<>(varVals.length);
 		for (TermValue termValue : varVals) {
 			this.varVals.add(termValue);
 		}
