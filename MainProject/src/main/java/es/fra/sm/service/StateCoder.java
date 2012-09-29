@@ -34,7 +34,7 @@ import es.fra.sm.model.TermValue;
  * 
  */
 // TODO use different codification
-public class StateCoder {
+public final class StateCoder {
 
 	private StateCoder() {
 
