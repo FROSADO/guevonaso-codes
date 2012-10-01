@@ -5,17 +5,6 @@ import java.io.Serializable;
 public enum TermValue implements Serializable {
 
 	DontCare("X"), Zero("0"), One("1");
-	private final String	format;
-
-	TermValue(final String format) {
-		this.format = format;
-	}
-
-	@Override
-	public String toString() {
-		return this.format;
-	}
-
 	/**
 	 * <ul>
 	 * <li>'0' == Zero</li>
@@ -58,5 +47,16 @@ public enum TermValue implements Serializable {
 		default:
 			return DontCare;
 		}
+	}
+
+	private final String	format;
+
+	TermValue(final String format) {
+		this.format = format;
+	}
+
+	@Override
+	public String toString() {
+		return this.format;
 	}
 }

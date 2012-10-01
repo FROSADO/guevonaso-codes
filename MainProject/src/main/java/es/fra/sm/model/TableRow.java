@@ -39,36 +39,6 @@ public class TableRow implements Serializable, Comparable<TableRow> {
 
 	}
 
-	public String getFinalState() {
-		return this.finalState;
-	}
-
-	public void setFinalState(String finalState) {
-		this.finalState = finalState;
-	}
-
-	public void setStartState(String startState) {
-		this.startState = startState;
-	}
-
-	public String getStartState() {
-		return this.startState;
-	}
-
-	public List<TermValue> getInputValue() {
-		if (this.inputValue == null) {
-			this.inputValue = new ArrayList<TermValue>();
-		}
-		return this.inputValue;
-	}
-
-	public List<TermValue> getOutputValue() {
-		if (this.outputValue == null) {
-			this.outputValue = new ArrayList<TermValue>();
-		}
-		return this.outputValue;
-	}
-
 	public void addInput(TermValue input) {
 		this.getInputValue().add(input);
 	}
@@ -77,21 +47,51 @@ public class TableRow implements Serializable, Comparable<TableRow> {
 		this.getOutputValue().add(output);
 	}
 
-	// ----------------------------------------------------------------------
-
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (prime * result)
-				+ ((this.finalState == null) ? 0 : this.finalState.hashCode());
-		result = (prime * result)
-				+ ((this.inputValue == null) ? 0 : this.inputValue.hashCode());
-		result = (prime * result)
-				+ ((this.outputValue == null) ? 0 : this.outputValue.hashCode());
-		result = (prime * result)
-				+ ((this.startState == null) ? 0 : this.startState.hashCode());
-		return result;
+	public int compareTo(TableRow other) {
+		if (this == other) {
+			return 0;
+		}
+		int compareTo = this.fieldCompare(this.startState, other.startState);
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		compareTo = this.fieldCompare(this.finalState, other.finalState);
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		// First Let's compare only the size
+
+		compareTo = this.getInputValue().size() - other.getInputValue().size();
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		for (int i = 0; i < this.getInputValue().size(); i++) {
+			final TermValue thisValue = this.getInputValue().get(i);
+			final TermValue otherValue = other.getInputValue().get(i);
+			compareTo = thisValue.compareTo(otherValue);
+			if (compareTo != 0) {
+				return compareTo;
+			}
+
+		}
+
+		compareTo = this.getOutputValue().size()
+				- other.getOutputValue().size();
+		if (compareTo != 0) {
+			return compareTo;
+		}
+		for (int i = 0; i < this.getOutputValue().size(); i++) {
+			final TermValue thisValue = this.getOutputValue().get(i);
+			final TermValue otherValue = other.getOutputValue().get(i);
+			compareTo = thisValue.compareTo(otherValue);
+			if (compareTo != 0) {
+				return compareTo;
+			}
+
+		}
+		return 0;
+
 	}
 
 	@Override
@@ -137,60 +137,8 @@ public class TableRow implements Serializable, Comparable<TableRow> {
 		return true;
 	}
 
-	@Override
-	public int compareTo(TableRow other) {
-		if (this == other) {
-			return 0;
-		}
-		int compareTo = this.fieldCompare(this.startState,other.startState);
-		if (compareTo != 0) {
-			return compareTo;
-		}
-		compareTo = this.fieldCompare(this.finalState,other.finalState);
-		if (compareTo != 0) {
-			return compareTo;
-		}
-		// First Let's compare only the size
-
-		compareTo = this.getInputValue().size() - other.getInputValue().size();
-		if (compareTo != 0) {
-			return compareTo;
-		}
-		for (int i = 0; i< this.getInputValue().size(); i++) {
-			final TermValue thisValue = this.getInputValue().get(i);
-			final TermValue otherValue = other.getInputValue().get(i);
-			compareTo = thisValue.compareTo(otherValue);
-			if (compareTo != 0) {
-				return compareTo;
-			}
-
-
-		}
-
-		compareTo = this.getOutputValue().size() - other.getOutputValue().size();
-		if (compareTo != 0) {
-			return compareTo;
-		}
-		for (int i =0; i< this.getOutputValue().size(); i++) {
-			final TermValue thisValue = this.getOutputValue().get(i);
-			final TermValue otherValue = other.getOutputValue().get(i);
-			compareTo = thisValue.compareTo(otherValue);
-			if (compareTo != 0) {
-				return compareTo;
-			}
-
-
-		}
-		return 0;
-
-
-
-
-
-	}
-
 	@SuppressWarnings("unchecked")
-	private <T> int fieldCompare (Comparable<T> one, Comparable<T> other) {
+	private <T> int fieldCompare(Comparable<T> one, Comparable<T> other) {
 		if (one != null) {
 			if (other != null) {
 				return one.compareTo((T) other);
@@ -204,6 +152,53 @@ public class TableRow implements Serializable, Comparable<TableRow> {
 				return -1;
 			}
 		}
+	}
+
+	public String getFinalState() {
+		return this.finalState;
+	}
+
+	public List<TermValue> getInputValue() {
+		if (this.inputValue == null) {
+			this.inputValue = new ArrayList<TermValue>();
+		}
+		return this.inputValue;
+	}
+
+	public List<TermValue> getOutputValue() {
+		if (this.outputValue == null) {
+			this.outputValue = new ArrayList<TermValue>();
+		}
+		return this.outputValue;
+	}
+
+	// ----------------------------------------------------------------------
+
+	public String getStartState() {
+		return this.startState;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result)
+				+ ((this.finalState == null) ? 0 : this.finalState.hashCode());
+		result = (prime * result)
+				+ ((this.inputValue == null) ? 0 : this.inputValue.hashCode());
+		result = (prime * result)
+				+ ((this.outputValue == null) ? 0 : this.outputValue.hashCode());
+		result = (prime * result)
+				+ ((this.startState == null) ? 0 : this.startState.hashCode());
+		return result;
+	}
+
+	public void setFinalState(String finalState) {
+		this.finalState = finalState;
+	}
+
+	public void setStartState(String startState) {
+		this.startState = startState;
 	}
 
 }

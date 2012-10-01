@@ -8,11 +8,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import es.fra.sm.model.TermValue;
-import static es.fra.sm.model.TermValue.*;
 
 public class TestQM {
 
 	private static final int	TEST_FILES	= 6;
+
+	public static Formula readFormula(InputStream reader) throws IOException {
+		final ArrayList<Term> terms = new ArrayList<Term>();
+		Term term;
+		while ((term = TestQM.readTerm(reader)) != null) {
+			terms.add(term);
+		}
+		return new Formula(terms);
+	}
 
 	public static Term readTerm(InputStream reader) throws IOException {
 		int c = '\0';
@@ -38,22 +46,13 @@ public class TestQM {
 		}
 	}
 
-	public static Formula readFormula(InputStream reader) throws IOException {
-		final ArrayList<Term> terms = new ArrayList<Term>();
-		Term term;
-		while ((term = readTerm(reader)) != null) {
-			terms.add(term);
-		}
-		return new Formula(terms);
-	}
-
 	@Test
 	public void testSampleFiles() throws IOException {
 		for (int x = 1; x < TestQM.TEST_FILES; x++) {
 			System.out.println("Sample " + x + " : ");
 			final InputStream sample = this.getClass().getResourceAsStream(
 					"Sample" + x + ".txt");
-			final Formula f = readFormula(sample);
+			final Formula f = TestQM.readFormula(sample);
 			final long start1 = System.nanoTime();
 			f.reduceToPrimeImplicants();
 			final long end1 = System.nanoTime();
@@ -68,14 +67,12 @@ public class TestQM {
 
 			final InputStream result = this.getClass().getResourceAsStream(
 					"Result" + x + ".txt");
-			final Formula r = readFormula(result);
+			final Formula r = TestQM.readFormula(result);
 
 			Assert.assertEquals(r.getTermList(), f.getTermList());
 
 		}
 
 	}
-
-
 
 }

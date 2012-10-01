@@ -1,9 +1,6 @@
 package es.fra.sm.qm;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,24 +24,15 @@ public class BasicTest {
 	}
 
 	@Test
-	public void testToString() {
-
-		final Formula f = new Formula(this.ones);
-		System.out.println(f.toString());
-		assertNotNull(f.toString());
-
-	}
-
-	@Test
 	public void testClone() throws CloneNotSupportedException {
 		final Object clone = this.oneTerm.clone();
-		assertNotSame("Clone failed", clone, this.oneTerm);
+		Assert.assertNotSame("Clone failed", clone, this.oneTerm);
 	}
 
 	@Test
 	public void testCombine() throws CloneNotSupportedException {
 
-		assertNull(this.oneTerm.combine(this.oneTerm.clone()));
+		Assert.assertNull(this.oneTerm.combine(this.oneTerm.clone()));
 		Term otherTerm = new Term(new TermValue[] { TermValue.One,
 				TermValue.Zero, TermValue.One });
 		Term result = this.oneTerm.combine(otherTerm);
@@ -53,6 +41,15 @@ public class BasicTest {
 				TermValue.One });
 		result = this.oneTerm.combine(otherTerm);
 		System.out.println(this.oneTerm + " , " + otherTerm + " --> " + result);
+
+	}
+
+	@Test
+	public void testToString() {
+
+		final Formula f = new Formula(this.ones);
+		System.out.println(f.toString());
+		Assert.assertNotNull(f.toString());
 
 	}
 

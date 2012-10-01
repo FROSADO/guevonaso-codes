@@ -9,39 +9,41 @@ import es.fra.sm.model.TermValue;
 public class Formula implements Cloneable {
 	private List<Term>	termList;
 	private List<Term>	originalTermList;
-	private String	label;
+	private String		label;
 
 	public Formula() {
 		this("F");
 	}
 
-	public Formula(String label) {
-		if (label != null) {
-			this.label = label;	
-		} else {
-			label = "F";
-		}
-
-	}
 	public Formula(final List<Term> termList) {
 		this();
 		this.termList = termList;
 	}
 
-	public Formula(Term ... terms) {
-		this(Arrays.asList(terms));
+	public Formula(String label) {
+		if (label != null) {
+			this.label = label;
+		} else {
+			label = "F";
+		}
+
 	}
-	public Formula (String label, Term ...terms) {
+
+	public Formula(String label, Term... terms) {
 		this(terms);
 		this.setLabel(label);
 	}
 
-	public String getLabel() {
-		return this.label;
+	public Formula(Term... terms) {
+		this(Arrays.asList(terms));
 	}
-	public void setLabel(String label) {
-		this.label = label;
+
+	public void addTerm(Term term) {
+		if (term != null) {
+			this.getTermList().add(term);
+		}
 	}
+
 	@Override
 	protected Formula clone() throws CloneNotSupportedException {
 		final List<Term> copy = new ArrayList<Term>(this.getTermList());
@@ -78,6 +80,42 @@ public class Formula implements Cloneable {
 			table[dontCares][ones].add(this.getTermList().get(i));
 		}
 		return table;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final Formula other = (Formula) obj;
+		if (this.label == null) {
+			if (other.label != null) {
+				return false;
+			}
+		} else if (!this.label.equals(other.label)) {
+			return false;
+		}
+		if (this.originalTermList == null) {
+			if (other.originalTermList != null) {
+				return false;
+			}
+		} else if (!this.originalTermList.equals(other.originalTermList)) {
+			return false;
+		}
+		if (this.termList == null) {
+			if (other.termList != null) {
+				return false;
+			}
+		} else if (!this.termList.equals(other.termList)) {
+			return false;
+		}
+		return true;
 	}
 
 	private int extractEssentialImplicant(boolean[][] table) {
@@ -161,6 +199,10 @@ public class Formula implements Cloneable {
 		}
 	}
 
+	public String getLabel() {
+		return this.label;
+	}
+
 	public List<Term> getTermList() {
 		if (this.termList == null) {
 			this.termList = new ArrayList<>();
@@ -168,10 +210,18 @@ public class Formula implements Cloneable {
 		return this.termList;
 	}
 
-	public void addTerm(Term term) {
-		if (term != null) {
-			this.getTermList().add(term);
-		}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result)
+				+ ((this.label == null) ? 0 : this.label.hashCode());
+		result = (prime * result)
+				+ ((this.originalTermList == null) ? 0 : this.originalTermList
+						.hashCode());
+		result = (prime * result)
+				+ ((this.termList == null) ? 0 : this.termList.hashCode());
+		return result;
 	}
 
 	public void reducePrimeImplicantsToSubset() {
@@ -203,6 +253,10 @@ public class Formula implements Cloneable {
 
 	}
 
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder result = new StringBuilder(this.getLabel());
@@ -229,52 +283,5 @@ public class Formula implements Cloneable {
 			this.getTermList().add(combined);
 		}
 
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (prime * result) + ((this.label == null) ? 0 : this.label.hashCode());
-		result = (prime
-				* result)
-				+ ((this.originalTermList == null) ? 0 : this.originalTermList.hashCode());
-		result = (prime * result)
-				+ ((this.termList == null) ? 0 : this.termList.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final Formula other = (Formula) obj;
-		if (this.label == null) {
-			if (other.label != null) {
-				return false;
-			}
-		} else if (!this.label.equals(other.label)) {
-			return false;
-		}
-		if (this.originalTermList == null) {
-			if (other.originalTermList != null) {
-				return false;
-			}
-		} else if (!this.originalTermList.equals(other.originalTermList)) {
-			return false;
-		}
-		if (this.termList == null) {
-			if (other.termList != null) {
-				return false;
-			}
-		} else if (!this.termList.equals(other.termList)) {
-			return false;
-		}
-		return true;
 	}
 }

@@ -5,9 +5,7 @@ import java.util.List;
 import es.fra.sm.model.TermValue;
 
 public class Termino {
-	private String[] claves;
-	private List<TermValue> values;
-	
-	
+	private String[]		claves;
+	private List<TermValue>	values;
 
 }

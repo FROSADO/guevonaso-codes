@@ -9,31 +9,50 @@ public class Term implements Cloneable {
 
 	private final List<TermValue>	varVals;
 
-	
 	public Term() {
 		this.varVals = new ArrayList<>();
 	}
 
 	public Term(TermValue... varVals) {
 		this.varVals = new ArrayList<>(varVals.length);
-		for (TermValue termValue : varVals) {
+		for (final TermValue termValue : varVals) {
 			this.varVals.add(termValue);
 		}
 	}
 
-	public int getNumVars() {
-		return this.varVals.size();
+	public void add(int index, TermValue element) {
+		this.varVals.add(index, element);
+	}
+
+	public boolean add(TermValue e) {
+		return this.varVals.add(e);
+	}
+
+	public void addAll(List<TermValue> inputs) {
+		this.varVals.addAll(inputs);
+	}
+
+	/**
+	 * Add all values to current Term.
+	 * 
+	 * @param code
+	 */
+	public void addAll(TermValue[] code) {
+		for (final TermValue termValue : code) {
+			this.varVals.add(termValue);
+		}
+
+	}
+
+	public void clear() {
+		this.varVals.clear();
 	}
 
 	@Override
-	public String toString() {
+	protected Term clone() throws CloneNotSupportedException {
 
-		final StringBuilder result = new StringBuilder("{");
-		for (final TermValue value : this.varVals) {
-			result.append(value);
-			// result.append(" ");
-		}
-		return result.append("}").toString();
+		return new Term(this.varVals
+				.toArray(new TermValue[this.varVals.size()]).clone());
 	}
 
 	/**
@@ -73,16 +92,9 @@ public class Term implements Cloneable {
 		}
 		// Let's return a new Term with
 		final TermValue[] resultVars = this.varVals.toArray(
-				new TermValue[varVals.size()]).clone();
+				new TermValue[this.varVals.size()]).clone();
 		resultVars[diffVarNum] = TermValue.DontCare;
 		return new Term(resultVars);
-	}
-
-	@Override
-	protected Term clone() throws CloneNotSupportedException {
-
-		return new Term(this.varVals.toArray(
-				new TermValue[varVals.size()]).clone());
 	}
 
 	/**
@@ -98,6 +110,41 @@ public class Term implements Cloneable {
 				result++;
 			}
 		}
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final Term other = (Term) obj;
+		if (this.varVals == null) {
+			if (other.varVals != null) {
+				return false;
+			}
+		} else if (!this.varVals.equals(other.varVals)) {
+			return false;
+		}
+		return true;
+	}
+
+	public int getNumVars() {
+		return this.varVals.size();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result)
+				+ ((this.varVals == null) ? 0 : this.varVals.hashCode());
 		return result;
 	}
 
@@ -122,64 +169,15 @@ public class Term implements Cloneable {
 		return true;
 	}
 
-	
-
-	public boolean add(TermValue e) {
-		return varVals.add(e);
-	}
-
-	public void clear() {
-		varVals.clear();
-	}
-
-	public void add(int index, TermValue element) {
-		varVals.add(index, element);
-	}
-
-	/**
-	 * Add all values to current Term. 
-	 * 
-	 * @param code
-	 */
-	public void addAll(TermValue[] code) {
-		for (TermValue termValue : code) {
-			this.varVals.add(termValue);
-		}
-
-	}
-
-	public void addAll(List<TermValue> inputs) {
-		this.varVals.addAll(inputs);
-	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((varVals == null) ? 0 : varVals.hashCode());
-		return result;
+	public String toString() {
+
+		final StringBuilder result = new StringBuilder("{");
+		for (final TermValue value : this.varVals) {
+			result.append(value);
+			// result.append(" ");
+		}
+		return result.append("}").toString();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Term other = (Term) obj;
-		if (varVals == null) {
-			if (other.varVals != null) {
-				return false;
-			}
-		} else if (!varVals.equals(other.varVals)) {
-			return false;
-		}
-		return true;
-	}
-
-	
 }
