@@ -1,11 +1,9 @@
 package es.fra.sm.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class TransitionMoore extends Transition<StateMoore> implements Serializable {
+public class TransitionMoore extends Transition<StateMoore> implements
+		Serializable {
 
 	/**
 	 * 
@@ -17,8 +15,5 @@ public class TransitionMoore extends Transition<StateMoore> implements Serializa
 		super(start, end, input);
 
 	}
-
-	
-	
 
 }

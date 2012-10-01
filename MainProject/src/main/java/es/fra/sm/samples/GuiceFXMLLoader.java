@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public class GuiceFXMLLoader {
-	private final Injector injector;
+	private final Injector	injector;
 
 	@Inject
 	public GuiceFXMLLoader(Injector injector) {
@@ -19,29 +19,29 @@ public class GuiceFXMLLoader {
 	// Load some FXML file, using the supplied Controller, and return the
 	// instance of the initialized controller...?
 	public Object load(String url, Class<?> controller) {
-		Object instance = injector.getInstance(controller);
-		FXMLLoader loader = new FXMLLoader();
+		final Object instance = this.injector.getInstance(controller);
+		final FXMLLoader loader = new FXMLLoader();
 		loader.getNamespace().put("controller", instance);
 		InputStream in = null;
-		
-		
+
 		try {
 			try {
-				URL u = getClass().getResource(url);
+				final URL u = this.getClass().getResource(url);
 				// URL u = new URL(url);
 				in = u.openStream();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				in = controller.getResourceAsStream(url);
 			}
 			return loader.load(in);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (in != null)
+			if (in != null) {
 				try {
 					in.close();
-				} catch (Exception ee) {
+				} catch (final Exception ee) {
 				}
+			}
 		}
 		return null;
 	}

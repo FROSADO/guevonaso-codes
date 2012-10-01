@@ -36,10 +36,6 @@ import es.fra.sm.model.TermValue;
 // TODO use different codification
 public final class StateCoder {
 
-	private StateCoder() {
-
-	}
-
 	/**
 	 * 
 	 * Code states using a codification (By Default Gray code). The order it's
@@ -84,6 +80,10 @@ public final class StateCoder {
 		}
 
 		return result;
+
+	}
+
+	private StateCoder() {
 
 	}
 }

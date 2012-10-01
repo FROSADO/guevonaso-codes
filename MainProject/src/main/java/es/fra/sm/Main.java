@@ -14,30 +14,30 @@ import es.fra.sm.samples.SampleModule;
 
 public class Main extends Application {
 
-	private final Injector injector = Guice.createInjector(new SampleModule());
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
+
+	private final Injector	injector	= Guice.createInjector(new SampleModule());
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		// Create a new Guice-based FXML Loader
-		GuiceFXMLLoader loader = new GuiceFXMLLoader(injector);
+		final GuiceFXMLLoader loader = new GuiceFXMLLoader(this.injector);
 		// Ask to load the Sample.fxml file, injecting an instance of a
 		// SampleController
-		Parent root = (Parent) loader.load("/fxml/Sample.fxml",
+		final Parent root = (Parent) loader.load("/fxml/Sample.fxml",
 				SampleController.class);
 
 		// Finish constructing the scene
 		final Scene scene = new Scene(root, 320, 240);
 		// Load up the CSS stylesheet
 		scene.getStylesheets().add(
-				getClass().getResource("/styles/fxmlapp.css").toString());
+				this.getClass().getResource("/styles/fxmlapp.css").toString());
 		// Show the window
 		stage.setScene(scene);
 		stage.setTitle("Guiced");
 		stage.show();
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 
 }

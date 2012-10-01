@@ -15,8 +15,39 @@ public class StateMoore extends State {
 		this.output = output;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final StateMoore other = (StateMoore) obj;
+		if (this.output == null) {
+			if (other.output != null) {
+				return false;
+			}
+		} else if (!this.output.equals(other.output)) {
+			return false;
+		}
+		return true;
+	}
+
 	public OutputFromStateMachine getOutput() {
-		return output;
+		return this.output;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = (prime * result)
+				+ ((this.output == null) ? 0 : this.output.hashCode());
+		return result;
 	}
 
 	public void setOutput(OutputFromStateMachine output) {
@@ -24,33 +55,8 @@ public class StateMoore extends State {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((output == null) ? 0 : output.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		StateMoore other = (StateMoore) obj;
-		if (output == null) {
-			if (other.output != null)
-				return false;
-		} else if (!output.equals(other.output))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		return "StateMoore [output=" + output + ", toString()="
+		return "StateMoore [output=" + this.output + ", toString()="
 				+ super.toString() + "]";
 	}
 

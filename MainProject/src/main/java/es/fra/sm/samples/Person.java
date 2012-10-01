@@ -1,9 +1,9 @@
 package es.fra.sm.samples;
 
 public class Person {
-	private String firstName = "Richard";
+	private final String	firstName	= "Richard";
 
 	public final String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 }
